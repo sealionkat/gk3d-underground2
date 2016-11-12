@@ -8,13 +8,24 @@ class Camera
     glm::vec3 Up;
     GLfloat yaw;
     GLfloat pitch;
-    Camera()
+
+    glm::mat4 View;
+    glm::mat4 Projection;
+
+    Camera(int width, int height)
     {
         Position = glm::vec3(0.0f, 2.0f, 0.0f);
         Front = glm::vec3(0.0f, 0.0f, -1.0f);
         Up = glm::vec3(0.0f, 1.0f, 0.0f);
         yaw = -90.0f;
         pitch = 0.0f;
+
+        Projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
+    }
+
+    void ComputeView()
+    {
+        View = glm::lookAt(Position, Position + Front, Up);
     }
 
     void DoMovement(glm::vec3 position)
