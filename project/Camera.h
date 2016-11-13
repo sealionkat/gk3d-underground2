@@ -21,11 +21,20 @@ class Camera
         Pitch = 0.0f;
 
         Projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
+        ComputeView();
     }
 
     void ComputeView()
     {
         View = glm::lookAt(Position, Position + Front, Up);
+    }
+
+    glm::mat4 GetView() {
+        return View;
+    }
+
+    glm::mat4 GetProjection() {
+        return Projection;
     }
 
     void DoMovement(glm::vec3 posOffset)
