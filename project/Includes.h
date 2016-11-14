@@ -25,6 +25,9 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+// SOIL
+#include <SOIL/SOIL.h>
+
 #include "Settings.h"
 #include "Shader.h"
 #include "Mesh.h"
