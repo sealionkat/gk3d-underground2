@@ -29,5 +29,6 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "Camera.h"
 
 #endif // !INCLUDES_H

@@ -29,11 +29,13 @@ class Camera
         View = glm::lookAt(Position, Position + Front, Up);
     }
 
-    glm::mat4 GetView() {
+    glm::mat4 GetView()
+    {
         return View;
     }
 
-    glm::mat4 GetProjection() {
+    glm::mat4 GetProjection()
+    {
         return Projection;
     }
 
@@ -63,4 +65,4 @@ class Camera
 
         Front = glm::normalize(front);
     }
-}
+};

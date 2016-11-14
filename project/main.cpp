@@ -14,6 +14,8 @@ GLfloat yaw = -90.0f;
 GLfloat pitch = 0.0f;
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
+
+Camera* cam = new Camera(WIDTH, HEIGHT);
 bool keys[1024];
 
 // Deltatime

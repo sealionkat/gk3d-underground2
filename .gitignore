@@ -1,8 +1,8 @@
 # Compiled Object files
 *.slo
 *.lo
-*.o
-*.obj
+# *.o
+# *.obj
 
 # Precompiled Headers
 *.gch
@@ -27,3 +27,7 @@
 *.exe
 *.out
 *.app
+
+underground
+c_cpp_properties.json
+.vscode
