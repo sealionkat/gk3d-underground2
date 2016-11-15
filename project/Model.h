@@ -82,6 +82,7 @@ private:
       Vertex vertex;
 
       glm::vec3 position, normal;
+      glm::vec2 tex_coords;
       position.x = mesh->mVertices[i].x;
       position.y = mesh->mVertices[i].y;
       position.z = mesh->mVertices[i].z;
@@ -93,6 +94,11 @@ private:
       normal.z = mesh->mNormals[i].z;
 
       vertex.Normal = normal;
+
+      tex_coords.x = 0.0f;
+      tex_coords.y = 0.0f;
+
+      vertex.TexCoords = tex_coords;
 
       vertices.push_back(vertex);
     }

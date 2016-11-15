@@ -30,6 +30,7 @@
 
 #include "Settings.h"
 #include "Shader.h"
+#include "Vertex.h"
 #include "Mesh.h"
 #include "Model.h"
 #include "Camera.h"

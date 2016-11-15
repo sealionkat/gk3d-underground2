@@ -1,11 +1,11 @@
 #ifndef MESH_H
 #define MESH_H
 
-struct Vertex
-{
-    glm::vec3 Position;
-    glm::vec3 Normal;
-};
+// struct Vertex
+// {
+//     glm::vec3 Position;
+//     glm::vec3 Normal;
+// };
 
 class Mesh
 {
@@ -54,6 +54,9 @@ class Mesh
 
         glEnableVertexAttribArray(1); // normal
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)offsetof(Vertex, Normal));
+
+        glEnableVertexAttribArray(2); // texture coords
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)offsetof(Vertex, TexCoords));
 
         glBindVertexArray(0); // disable VAO
     }

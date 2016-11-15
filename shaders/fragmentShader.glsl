@@ -41,7 +41,7 @@ out vec4 color;
 
 in vec3 FragPos;
 in vec3 Normal;
-// in vec2 TexCoords;
+in vec2 TexCoords;
 
 uniform PointLight pointLights[POINT_LIGHTS_NR];
 uniform SpotLight spotLights[SPOT_LIGHTS_NR];
