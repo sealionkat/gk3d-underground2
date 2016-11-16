@@ -30,6 +30,15 @@ class Texture
 
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+    void use(Shader shader, int num)
+    {
+        if (num >= 0 && num < Settings::TexturesCount)
+        {
+            glActiveTexture(GL_TEXTURE0 + num);
+            glBindTexture(GL_TEXTURE2D, texture);
+            glUniform1i(glGetUniformLocation(shader.Program, Settings::texturesLoc + "[" + num + "]"), num);
+        }
+    }
 
   private:
     GLuint texture;

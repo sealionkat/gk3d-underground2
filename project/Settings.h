@@ -28,6 +28,8 @@ public:
   static constexpr const GLfloat CameraSpeed = 5.0f;
   static constexpr const GLfloat MouseSensitivity = 0.05f;
 
+  static const int TexturesCount = 2;
+
   static constexpr const char* objectColorLoc = "objectColor";
   static constexpr const char* viewPosLoc = "viewPos";
 
