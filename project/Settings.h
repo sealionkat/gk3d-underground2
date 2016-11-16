@@ -40,6 +40,9 @@ public:
   static constexpr const char* viewMatrixLoc = "view";
   static constexpr const char* projectionMatrixLoc = "projection";
 
+  static constexpr const char* texturesLoc = "textures";
+  static constexpr const char* numTexturesLoc = "numTextures";
+
 
 private:
   Settings() = delete;

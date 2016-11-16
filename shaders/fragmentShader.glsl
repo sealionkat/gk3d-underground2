@@ -2,6 +2,7 @@
 
 #define POINT_LIGHTS_NR 2
 #define SPOT_LIGHTS_NR 2
+#define TEXTURES_NR 2
 
 struct Material
 {
@@ -49,6 +50,9 @@ uniform SpotLight spotLights[SPOT_LIGHTS_NR];
 uniform vec3 viewPos;
 uniform vec3 objectColor;
 uniform Material material;
+
+// uniform sampler2D textures[TEXTURES_NR];
+// uniform int numTextures;
 
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
@@ -105,18 +109,33 @@ void main()
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
 
-    vec3 result = vec3(0.0f, 0.0f, 0.0f);
+    vec3 lightResult = vec3(0.0f, 0.0f, 0.0f);
 
     for(int i = 0; i < POINT_LIGHTS_NR; ++i) 
     {
-        result += CalculatePointLight(pointLights[i], norm, FragPos, viewDir);
+        lightResult += CalculatePointLight(pointLights[i], norm, FragPos, viewDir);
     }
     for(int i = 0; i < SPOT_LIGHTS_NR; ++i) 
     {
-        result += CalculateSpotLight(spotLights[i], norm, FragPos, viewDir);
+        lightResult += CalculateSpotLight(spotLights[i], norm, FragPos, viewDir);
     }
 
-   result *= objectColor;
+     lightResult *= objectColor;
 
-    color = vec4(result, 1.0f);
+    //vec4 outputColor = objectColor;
+
+/*
+    for(int i = 0; i < numTextures; ++i) 
+    {
+        vec4 col = texture(textures[i], TexCoords);
+        float alpha = col.w;
+
+        outputColor = alpha * col + (1.0f - alpha) * outputColor; 
+    }
+    */
+
+    //outputColor *= vec4(lightResult, 1.0f);
+
+
+    color = vec4(lightResult, 1.0f);
 }
