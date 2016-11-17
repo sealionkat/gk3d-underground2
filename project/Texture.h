@@ -4,7 +4,7 @@
 class Texture
 {
   public:
-    static void loadFromFile(const char *fileName, bool noRepeat)
+    void loadFromFile(const char *fileName, bool noRepeat)
     {
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
