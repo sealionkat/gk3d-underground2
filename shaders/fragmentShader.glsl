@@ -120,7 +120,7 @@ void main()
         lightResult += CalculateSpotLight(spotLights[i], norm, FragPos, viewDir);
     }
 
-    vec4 outputColor = vec4(lightResult * objectColor, 1.0f); //outputColor = vec4(objectColor, 1.0f)
+    vec4 outputColor = vec4(lightResult * objectColor, 1.0f);
 
     /*vec4 outputColor = vec4(objectColor, 1.0f);
 
@@ -138,12 +138,10 @@ void main()
     vec4 texCol = texture(textures[0], TexCoords);
 
 
-    //outputColor *= vec4(lightResult, 1.0f);
-
 if(numTextures > 0) {
-    color = texCol * vec4(lightResult * objectColor, 1.0f);//outputColor;
+    color = texCol * vec4(lightResult * objectColor, 1.0f);
 } else {
-    color = vec4(lightResult * objectColor, 1.0f);//outputColor;
+    color = vec4(lightResult * objectColor, 1.0f);
 }
 
     //color = vec4(lightResult * objectColor, 1.0f);//outputColor;

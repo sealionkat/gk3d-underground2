@@ -84,13 +84,13 @@ int main()
         3.0f, 1.0f, 15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         -3.0f, 1.0f, 15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-        3.0f, 1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //right
-        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        3.0f, 1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 10.0f, //right
+        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
         3.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
         3.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        3.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
+        3.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 0.0f,
 
         -3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,//down
         -3.0f, -1.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
@@ -101,12 +101,12 @@ int main()
         3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
         -3.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,//left
-        -3.0f, 1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        -3.0f, 1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 10.0f,
+        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
 
         -3.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -3.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
+        -3.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 0.0f,
 
         -3.0f, -1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //back
         -3.0f, 1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
@@ -117,11 +117,11 @@ int main()
         -3.0f, -1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,//up
-        -3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+        -3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 10.0f,
+        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 10.0f,
 
-        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-        3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 10.0f,
+        3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 0.0f,
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f};
     
     std::cout << "Creating walls, floor and ceiling" << std::endl;
@@ -166,16 +166,17 @@ int main()
         8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-        -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,//up
-        -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+        -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,//up
+        -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
         8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
-        8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+       8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
         8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
         -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f
 
                              
     };
+
 
     // VBO, VAO
     GLuint VBO, VAO, VBOBig, VAOBig;
@@ -193,7 +194,7 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat))); //location 1 - normal
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(2 * sizeof(GLfloat))); // location 2 - texture coords
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat))); // location 2 - texture coords
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -209,7 +210,7 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat))); //location 1 - normal
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat))); // location 2 - texture coords
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat))); // location 2 - texture coords
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
