@@ -232,7 +232,7 @@ int main()
 
     /* Textures setup */
     Texture* brickTex = new Texture();
-    brickTex->loadFromFile("textures/brickwall.jpg", true);
+    brickTex->loadFromFile("textures/brickwall.jpg", false);
 
     /* /Textures setup */
 

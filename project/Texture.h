@@ -14,7 +14,7 @@ class Texture
 
         if (noRepeat)
         {
-            GLfloat borderColor[] = {0.0f, 0.0f, 0.0f, 0.0f}; //black and transparent
+            GLfloat borderColor[] = {1.0f, 0.0f, 0.0f, 0.0f}; //black and transparent
             glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
         }
 
