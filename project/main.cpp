@@ -320,7 +320,7 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
         glBindVertexArray(0);
 
-       // glBindTexture(GL_TEXTURE_2D, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
         
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 0);

@@ -2,7 +2,7 @@
 
 #define POINT_LIGHTS_NR 2
 #define SPOT_LIGHTS_NR 2
-#define TEXTURES_NR 2
+#define TEXTURES_NR 1
 
 struct Material
 {
@@ -140,6 +140,11 @@ void main()
 
     //outputColor *= vec4(lightResult, 1.0f);
 
+if(numTextures > 0) {
+    color = texCol * vec4(lightResult * objectColor, 1.0f);//outputColor;
+} else {
+    color = vec4(lightResult * objectColor, 1.0f);//outputColor;
+}
 
-    color = vec4(lightResult * texCol * objectColor, 1.0f);//outputColor;
+    //color = vec4(lightResult * objectColor, 1.0f);//outputColor;
 }
