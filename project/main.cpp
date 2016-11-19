@@ -235,6 +235,9 @@ int main()
     Texture* brickTex = new Texture();
     brickTex->loadFromFile("textures/brickwall.jpg", false);
 
+    Texture* benchTex = new Texture();
+    benchTex->loadFromFile("textures/bench_wood_color.jpg", false);
+
     /* /Textures setup */
 
 
@@ -340,7 +343,10 @@ int main()
         benchModel = translatedBench * scaledBench;
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(benchModel));
 
+        benchTex->use(shaderMtn, 0);
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 1);
         bench->Draw(shaderMtn);
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 0);
 
         glm::mat4 translatedBench2;
         glm::mat4 rotatedBench2;

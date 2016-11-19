@@ -12,14 +12,26 @@ class Mesh
   public:
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
+    std::vector<Texture> textures;
     glm::vec3 color;
 
     Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, glm::vec3 color)
     {
-        std::cout << "Initializing mesh" << std::endl;
+        std::cout << "Initializing color mesh" << std::endl;
         this->vertices = vertices;
         this->indices = indices;
         this->color = color;
+
+        this->setupMesh();
+    }
+
+    Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures)
+    {
+        std::cout << "Initializing texture mesh" << std::endl;
+
+        this->vertices = vertices;
+        this->indices = indices;
+        this->textures = textures;
 
         this->setupMesh();
     }

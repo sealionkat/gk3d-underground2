@@ -45,6 +45,8 @@ class Texture
     GLuint texture;
     int width;
     int height;
+    GLuint id;
+    std::string type;
 };
 
 #endif // !TEXTURE_H

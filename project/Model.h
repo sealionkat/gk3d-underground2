@@ -35,6 +35,7 @@ private:
   std::vector<Mesh> meshes;
   std::string directory;
   glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
+  bool textured;
 
   void loadModel(std::string path)
   {
@@ -74,6 +75,7 @@ private:
     std::cout << "Processing mesh" << std::endl;
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
+    std::vector<Texture> textures;
 
     std::cout << "Processing vertices" << std::endl;
     // vertices
@@ -95,10 +97,22 @@ private:
 
       vertex.Normal = normal;
 
-      tex_coords.x = 0.0f;
-      tex_coords.y = 0.0f;
+      if (mesh->mTextureCoords[0])
+      {
+        glm::vec2 texCoord;
+        texCoord.x = mesh->mTextureCoords[0][i].x;
+        texCoord.y = mesh->mTextureCoords[0][i].y;
 
-      vertex.TexCoords = tex_coords;
+        vertex.TexCoords = texCoord;
+      }
+      else
+      {
+
+        tex_coords.x = 0.0f;
+        tex_coords.y = 0.0f;
+
+        vertex.TexCoords = tex_coords;
+      }
 
       vertices.push_back(vertex);
     }
