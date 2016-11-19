@@ -51,8 +51,8 @@ uniform vec3 viewPos;
 uniform vec3 objectColor;
 uniform Material material;
 
-// uniform sampler2D textures[TEXTURES_NR];
-// uniform int numTextures;
+uniform sampler2D textures[TEXTURES_NR];
+uniform int numTextures;
 
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
@@ -122,18 +122,24 @@ void main()
 
     vec4 outputColor = vec4(lightResult * objectColor, 1.0f); //outputColor = vec4(objectColor, 1.0f)
 
-/*
+    /*vec4 outputColor = vec4(objectColor, 1.0f);
+
+
     for(int i = 0; i < numTextures; ++i) 
     {
         vec4 col = texture(textures[i], TexCoords);
-        float alpha = col.w;
+        float alpha = 0.0f;//col.w;
 
-        outputColor = alpha * col + (1.0f - alpha) * outputColor; 
+        //outputColor = alpha * col + (1.0f - alpha) * outputColor;
+        outputColor = col * outputColor; 
     }
     */
+
+    vec4 texCol = texture(textures[0], TexCoords);
+
 
     //outputColor *= vec4(lightResult, 1.0f);
 
 
-    color = outputColor;
+    color = vec4(lightResult * texCol * objectColor, 1.0f);//outputColor;
 }

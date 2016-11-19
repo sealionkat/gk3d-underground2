@@ -166,8 +166,8 @@ int main()
         8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-        -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,//up
-        -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+        -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,//up
+        -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
         8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
         8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
@@ -193,7 +193,7 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat))); //location 1 - normal
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat))); // location 2 - texture coords
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(2 * sizeof(GLfloat))); // location 2 - texture coords
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -313,13 +313,18 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
 
         brickTex->use(shaderMtn, 0);
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 1);
         
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
         glBindVertexArray(0);
 
+       // glBindTexture(GL_TEXTURE_2D, 0);
+
         
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 0);
+
         glBindVertexArray(VAOBig);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
