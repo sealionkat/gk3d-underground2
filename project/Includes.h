@@ -33,6 +33,7 @@
 #include "Vertex.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "Texture.h"
 #include "Camera.h"
 
 #endif // !INCLUDES_H

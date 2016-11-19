@@ -125,7 +125,7 @@ int main()
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f};
     
     std::cout << "Creating walls, floor and ceiling" << std::endl;
-    GLfloat verticesBig[] = {//position, normal
+    GLfloat verticesBig[] = {//position, normal, texture
         -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //front
         8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
         8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
@@ -227,9 +227,15 @@ int main()
     Model* flashlight = new Model("models/flashlight/flashlight.obj");
     flashlight->SetColor(glm::vec3(0.0f, 1.0f, 1.0f));
 
-    
 
     /* /Objects setup */
+
+    /* Textures setup */
+    Texture* brickTex = new Texture();
+    brickTex->loadFromFile("textures/brickwall.jpg", true);
+
+    /* /Textures setup */
+
 
     // Game loop
     std::cout << "Starting main loop!" << std::endl;
@@ -305,6 +311,8 @@ int main()
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
+
+        brickTex->use(shaderMtn, 0);
         
 
         glBindVertexArray(VAO);

@@ -35,8 +35,9 @@ class Texture
         if (num >= 0 && num < Settings::TexturesCount)
         {
             glActiveTexture(GL_TEXTURE0 + num);
-            glBindTexture(GL_TEXTURE2D, texture);
-            glUniform1i(glGetUniformLocation(shader.Program, Settings::texturesLoc + "[" + num + "]"), num);
+            glBindTexture(GL_TEXTURE_2D, texture);
+            std::string name = std::string(Settings::texturesLoc) + std::string("[") + std::to_string(num) + std::string("]");
+            glUniform1i(glGetUniformLocation(shader.Program, name.c_str()), num);
         }
     }
 
@@ -44,6 +45,6 @@ class Texture
     GLuint texture;
     int width;
     int height;
-}
+};
 
 #endif // !TEXTURE_H
