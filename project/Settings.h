@@ -36,9 +36,9 @@ public:
 
   static const int FogIntensityMax = 2000;
   static const int FogIntensityMin = 100;
-  static const int FogIntensityDefault = 200;
+  static const int FogIntensityDefault = 999;
   static const int FogIntensityStep = 5;
-  static constexpr float FogBrightness = 0.1f;
+  static constexpr float FogBrightness = 0.15f;
 
 
   static constexpr const char* objectColorLoc = "objectColor";
@@ -58,7 +58,7 @@ public:
 
   static constexpr const char* fogOnLoc = "fogOn";
   static constexpr const char* fogIntensityLoc = "fogIntensity";
-  static constexpr const char* fogBrightness = "fogBrightness";
+  static constexpr const char* fogBrightnessLoc = "fogBrightness";
 
 
 private:

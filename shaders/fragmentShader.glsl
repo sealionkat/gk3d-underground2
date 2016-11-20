@@ -54,6 +54,10 @@ uniform Material material;
 uniform sampler2D textures[TEXTURES_NR];
 uniform int numTextures;
 
+uniform bool fogOn;
+uniform float fogIntensity;
+uniform float fogBrightness;
+
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
 {
@@ -103,6 +107,13 @@ vec3 CalculateSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir
     return (ambient + diffuse + specular) * attenuation * intensity;  
 }
 
+float CalculateFog() 
+{
+    float dist = distance(FragPos, viewPos);
+    float res = fogOn ? exp(-fogIntensity * dist) : 1.0;
+    return 1.0 - clamp(res, 0.0, 1.0);
+}
+
 
 void main()
 {
@@ -148,6 +159,7 @@ void main()
 
     outputColor *= vec4(lightResult, 1.0f);
 
-    color = outputColor;
+    //color = outputColor;
+    color = mix(outputColor, vec4(fogBrightness, fogBrightness, fogBrightness, 1.0f), CalculateFog());
 
 }

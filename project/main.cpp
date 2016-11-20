@@ -277,6 +277,10 @@ int main()
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
 
         // fog
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::fogOnLoc), true);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::fogIntensityLoc), Settings::FogIntensityDefault / 1000);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::fogBrightnessLoc), Settings::FogBrightness);
+
 
         // Point lights
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.5f, 12.0f);
