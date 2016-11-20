@@ -15,12 +15,14 @@ GLfloat pitch = 0.0f;
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 
-Camera* cam = new Camera(WIDTH, HEIGHT);
+Camera *cam = new Camera(WIDTH, HEIGHT);
 bool keys[1024];
 
 // Deltatime
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
+
+int CurrentPlatformTexNo = 0;
 
 int main()
 {
@@ -92,7 +94,7 @@ int main()
         3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
         3.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 0.0f,
 
-        -3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,//down
+        -3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, //down
         -3.0f, -1.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
         3.0f, -1.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
@@ -100,7 +102,7 @@ int main()
         3.0f, -1.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
         3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
-        -3.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,//left
+        -3.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //left
         -3.0f, 1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 10.0f,
         -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
 
@@ -116,67 +118,63 @@ int main()
         3.0f, -1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
         -3.0f, -1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-        -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,//up
+        -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, //up
         -3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 10.0f,
         3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 10.0f,
 
         3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 10.0f,
         3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 0.0f,
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f};
-    
+
     std::cout << "Creating walls, floor and ceiling" << std::endl;
-    GLfloat verticesBig[] = {//position, normal, texture
-        -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //front
-        8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
- 
-        -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-        8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-        -8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+    GLfloat verticesBig[] = {                                                    //position, normal, texture
+                             -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //front
+                             8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-        8.0f, 7.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,//right
-        8.0f, 7.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+                             -8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-        8.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, 7.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //right
+                             8.0f, 7.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-        -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,//down
-        -8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-        -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, //down
+                             -8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 
-        -8.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,//left
-        -8.0f, 7.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -8.0f, 7.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 
-        -8.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -8.0f, 7.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -8.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //left
+                             -8.0f, 7.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, 7.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-        -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,//back
-        -8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f,0.0f, 0.0f,
-        8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, 7.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-        8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-        8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-        -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, //back
+                             -8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-        -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,//up
-        -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-       8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-        8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-        -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f
+                             -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, //up
+                             -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
-                             
-    };
-
+                             8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f};
 
     // VBO, VAO
     GLuint VBO, VAO, VBOBig, VAOBig;
@@ -210,7 +208,7 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat))); //location 1 - normal
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat))); // location 2 - texture coords
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat))); // location 2 - texture coords
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -219,30 +217,28 @@ int main()
 
     std::cout << "Creating bench" << std::endl;
 
-    Model* bench = new Model("models/bench/bench_v01.obj");
+    Model *bench = new Model("models/bench/bench_v01.obj");
     bench->SetColor(glm::vec3(0.75f, 0.75f, 0.0f));
 
-    Model* slenderman = new Model("models/slenderman/slenderman.obj");
+    Model *slenderman = new Model("models/slenderman/slenderman.obj");
     slenderman->SetColor(glm::vec3(0.3f, 0.3f, 0.3f));
 
-    Model* flashlight = new Model("models/flashlight/flashlight.obj");
+    Model *flashlight = new Model("models/flashlight/flashlight.obj");
     flashlight->SetColor(glm::vec3(0.0f, 1.0f, 1.0f));
-
 
     /* /Objects setup */
 
     /* Textures setup */
-    Texture* concrete1 = new Texture();
+    Texture *concrete0 = new Texture();
+    concrete0->loadFromFile("textures/concrete0.jpg", false);
+
+    Texture *concrete1 = new Texture();
     concrete1->loadFromFile("textures/concrete1.jpg", false);
 
-    Texture* concrete2 = new Texture();
-    concrete2->loadFromFile("textures/concrete2.jpg", false);
-
-    Texture* benchTex = new Texture();
+    Texture *benchTex = new Texture();
     benchTex->loadFromFile("textures/bench_wood_color.jpg", false);
 
     /* /Textures setup */
-
 
     // Game loop
     std::cout << "Starting main loop!" << std::endl;
@@ -269,7 +265,6 @@ int main()
         model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
-
 
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
@@ -310,18 +305,22 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].linear"), 0.5f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].quadratic"), 0.05f);
 
-
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
-        
 
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialAmbientLoc), 0.75f, 0.75f, 0.75f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
 
-        concrete1->use(shaderMtn, 0);
+        if (CurrentPlatformTexNo == 0)
+        {
+            concrete0->use(shaderMtn, 0);
+        }
+        else
+        {
+            concrete1->use(shaderMtn, 0);
+        }
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 1);
-        
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
@@ -329,7 +328,6 @@ int main()
 
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 0);
 
         glBindVertexArray(VAOBig);
@@ -340,7 +338,7 @@ int main()
         glm::mat4 scaledBench;
         glm::mat4 translatedBench;
         glm::mat4 benchModel;
-        
+
         scaledBench = glm::scale(scaledBench, glm::vec3(0.007f, 0.007f, 0.007f));
         translatedBench = glm::translate(translatedBench, glm::vec3(0.25f, 1.0f, 5.0f));
         benchModel = translatedBench * scaledBench;
@@ -373,7 +371,7 @@ int main()
         rotatedSlenderman = glm::rotate(rotatedSlenderman, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         slendermanModel = translatedSlenderman * rotatedSlenderman * scaledSlenderman;
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(slendermanModel));
-        
+
         slenderman->Draw(shaderMtn);
 
         glm::mat4 flashlightModel;
@@ -390,7 +388,7 @@ int main()
         flashlightModel = translatedFlashlight * rotatedFlashlight * scaledFlashlight * translatedFirstFlashlight;
 
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(flashlightModel));
-        
+
         flashlight->Draw(shaderMtn);
 
         glfwSwapBuffers(window);
@@ -452,6 +450,11 @@ void do_movement()
     if (keys[Settings::RightKey])
     {
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    }
+    if (keys[Settings::SwitchPlatformTexture])
+    {
+        CurrentPlatformTexNo = (CurrentPlatformTexNo + 1) % 2;
+        keys[Settings::SwitchPlatformTexture] = false;
     }
 }
 
