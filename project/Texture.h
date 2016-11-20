@@ -4,17 +4,17 @@
 class Texture
 {
   public:
-    void loadFromFile(const char *fileName, bool noRepeat)
+    void loadFromFile(const char *fileName, bool noRepeatS, bool noRepeatT)
     {
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, noRepeat ? GL_CLAMP_TO_BORDER : GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, noRepeat ? GL_CLAMP_TO_BORDER : GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, noRepeatS ? GL_CLAMP_TO_BORDER : GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, noRepeatT ? GL_CLAMP_TO_BORDER : GL_REPEAT);
 
-        if (noRepeat)
+        if (noRepeatS || noRepeatT)
         {
-            GLfloat borderColor[] = {1.0f, 0.0f, 0.0f, 0.0f}; //black and transparent
+            GLfloat borderColor[] = {0.0f, 0.0f, 0.0f, 0.0f}; //black and transparent
             glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
         }
 

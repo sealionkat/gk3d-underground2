@@ -86,13 +86,13 @@ int main()
         3.0f, 1.0f, 15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         -3.0f, 1.0f, 15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-        3.0f, 1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 10.0f, //right
-        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
+        3.0f, 1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, //right
+        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
         3.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
         3.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
-        3.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 10.0f, 0.0f,
+        3.0f, 1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+        3.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
         -3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, //down
         -3.0f, -1.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
@@ -103,12 +103,12 @@ int main()
         3.0f, -1.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
 
         -3.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //left
-        -3.0f, 1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 10.0f,
-        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
+        -3.0f, 1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
 
         -3.0f, -1.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 10.0f,
-        -3.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 10.0f, 0.0f,
+        -3.0f, 1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+        -3.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
         -3.0f, -1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //back
         -3.0f, 1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
@@ -119,11 +119,11 @@ int main()
         -3.0f, -1.0f, -15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, //up
-        -3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 10.0f,
-        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 10.0f,
+        -3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
 
-        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 10.0f,
-        3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 10.0f, 0.0f,
+        3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f};
 
     std::cout << "Creating walls, floor and ceiling" << std::endl;
@@ -230,13 +230,16 @@ int main()
 
     /* Textures setup */
     Texture *concrete0 = new Texture();
-    concrete0->loadFromFile("textures/concrete0.jpg", false);
+    concrete0->loadFromFile("textures/concrete0.jpg", false, false);
 
     Texture *concrete1 = new Texture();
-    concrete1->loadFromFile("textures/concrete1.jpg", false);
+    concrete1->loadFromFile("textures/concrete1.jpg", false, false);
 
     Texture *benchTex = new Texture();
-    benchTex->loadFromFile("textures/bench_wood_color.jpg", false);
+    benchTex->loadFromFile("textures/bench_wood_color.jpg", false, false);
+
+    Texture *platformStripes = new Texture();
+    platformStripes->loadFromFile("textures/platformstripes.png", true, false);
 
     /* /Textures setup */
 
