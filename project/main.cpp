@@ -231,7 +231,6 @@ int main()
     /* Textures setup */
     Texture *concrete0 = new Texture();
     concrete0->loadFromFile("textures/concrete0.jpg", false, false);
-    //concrete0->loadFromFile("textures/platformstripes.png", true, false);
 
     Texture *concrete1 = new Texture();
     concrete1->loadFromFile("textures/concrete1.jpg", false, false);
@@ -276,6 +275,8 @@ int main()
 
         // setting camera position
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
+
+        // fog
 
         // Point lights
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.5f, 12.0f);

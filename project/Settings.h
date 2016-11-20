@@ -25,11 +25,21 @@ public:
   static const int UpKey = GLFW_KEY_Q;
   static const int DownKey = GLFW_KEY_E;
   static const int SwitchPlatformTexture = GLFW_KEY_P;
+  static const int SwitchFog = GLFW_KEY_F;
+  static const int UpFogIntensity = GLFW_KEY_R;
+  static const int DownFogIntensity = GLFW_KEY_V;
 
   static constexpr const GLfloat CameraSpeed = 5.0f;
   static constexpr const GLfloat MouseSensitivity = 0.05f;
 
   static const int TexturesCount = 2;
+
+  static const int FogIntensityMax = 2000;
+  static const int FogIntensityMin = 100;
+  static const int FogIntensityDefault = 200;
+  static const int FogIntensityStep = 5;
+  static constexpr float FogBrightness = 0.1f;
+
 
   static constexpr const char* objectColorLoc = "objectColor";
   static constexpr const char* viewPosLoc = "viewPos";
@@ -45,6 +55,10 @@ public:
 
   static constexpr const char* texturesLoc = "textures";
   static constexpr const char* numTexturesLoc = "numTextures";
+
+  static constexpr const char* fogOnLoc = "fogOn";
+  static constexpr const char* fogIntensityLoc = "fogIntensity";
+  static constexpr const char* fogBrightness = "fogBrightness";
 
 
 private:
