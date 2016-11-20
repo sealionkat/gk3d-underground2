@@ -231,6 +231,7 @@ int main()
     /* Textures setup */
     Texture *concrete0 = new Texture();
     concrete0->loadFromFile("textures/concrete0.jpg", false, false);
+    //concrete0->loadFromFile("textures/platformstripes.png", true, false);
 
     Texture *concrete1 = new Texture();
     concrete1->loadFromFile("textures/concrete1.jpg", false, false);
@@ -323,7 +324,8 @@ int main()
         {
             concrete1->use(shaderMtn, 0);
         }
-        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 1);
+        platformStripes->use(shaderMtn, 1);
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 2);
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube

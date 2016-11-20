@@ -120,29 +120,34 @@ void main()
         lightResult += CalculateSpotLight(spotLights[i], norm, FragPos, viewDir);
     }
 
-    vec4 outputColor = vec4(lightResult * objectColor, 1.0f);
+    vec4 outputColor = vec4(objectColor, 1.0f);
 
-    /*vec4 outputColor = vec4(objectColor, 1.0f);
+    // doesn't work with mine graphic's driver - array indices must be const
+    //for(int j = 0; j < 1; j++) {
+        //vec4 texCol = texture(textures[j], TexCoords);
+        //float texAlpha = texCol.w;
 
-
-    for(int i = 0; i < numTextures; ++i) 
+        //outputColor = texAlpha * texCol + (1.0 - texAlpha) * outputColor;
+    //}
+    
+    if (numTextures >= 1)
     {
-        vec4 col = texture(textures[i], TexCoords);
-        float alpha = 0.0f;//col.w;
+        vec4 texCol = texture(textures[0], TexCoords);
+        float texAlpha = texCol.w;
 
-        //outputColor = alpha * col + (1.0f - alpha) * outputColor;
-        outputColor = col * outputColor; 
+        outputColor = texAlpha * texCol + (1.0 - texAlpha) * outputColor;
     }
-    */
 
-    vec4 texCol = texture(textures[0], TexCoords);
+    if (numTextures >= 2)
+    {
+        vec4 texCol = texture(textures[1], TexCoords);
+        float texAlpha = texCol.w;
 
+        outputColor = texAlpha * texCol + (1.0 - texAlpha) * outputColor;
+    }
 
-if(numTextures > 0) {
-    color = texCol * vec4(lightResult * objectColor, 1.0f);
-} else {
-    color = vec4(lightResult * objectColor, 1.0f);
-}
+    outputColor *= vec4(lightResult, 1.0f);
 
-    //color = vec4(lightResult * objectColor, 1.0f);//outputColor;
+    color = outputColor;
+
 }
