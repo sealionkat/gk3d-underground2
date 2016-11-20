@@ -220,7 +220,7 @@ int main()
     std::cout << "Creating bench" << std::endl;
 
     Model* bench = new Model("models/bench/bench_v01.obj");
-    bench->SetColor(glm::vec3(0.0f, 0.4f, 0.15f));
+    bench->SetColor(glm::vec3(0.75f, 0.75f, 0.0f));
 
     Model* slenderman = new Model("models/slenderman/slenderman.obj");
     slenderman->SetColor(glm::vec3(0.3f, 0.3f, 0.3f));
@@ -232,8 +232,11 @@ int main()
     /* /Objects setup */
 
     /* Textures setup */
-    Texture* brickTex = new Texture();
-    brickTex->loadFromFile("textures/brickwall.jpg", false);
+    Texture* concrete1 = new Texture();
+    concrete1->loadFromFile("textures/concrete1.jpg", false);
+
+    Texture* concrete2 = new Texture();
+    concrete2->loadFromFile("textures/concrete2.jpg", false);
 
     Texture* benchTex = new Texture();
     benchTex->loadFromFile("textures/bench_wood_color.jpg", false);
@@ -316,7 +319,7 @@ int main()
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
 
-        brickTex->use(shaderMtn, 0);
+        concrete1->use(shaderMtn, 0);
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 1);
         
 

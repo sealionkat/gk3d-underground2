@@ -24,6 +24,7 @@ public:
   static const int RightKey = GLFW_KEY_D;
   static const int UpKey = GLFW_KEY_Q;
   static const int DownKey = GLFW_KEY_E;
+  static const int SwitchPlatformTexture = GLFW_KEY_P;
 
   static constexpr const GLfloat CameraSpeed = 5.0f;
   static constexpr const GLfloat MouseSensitivity = 0.05f;
