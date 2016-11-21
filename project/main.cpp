@@ -23,6 +23,8 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
 int CurrentPlatformTexNo = 0;
+bool fogOn = false;
+int fogIntensity = Settings::FogIntensityDefault;
 
 int main()
 {
@@ -277,10 +279,9 @@ int main()
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
 
         // fog
-        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::fogOnLoc), true);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::fogIntensityLoc), Settings::FogIntensityDefault / 1000);
+        glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::fogOnLoc), fogOn);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::fogIntensityLoc), GLfloat(fogIntensity) / 2000.0);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::fogBrightnessLoc), Settings::FogBrightness);
-
 
         // Point lights
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.5f, 12.0f);
@@ -465,6 +466,27 @@ void do_movement()
     {
         CurrentPlatformTexNo = (CurrentPlatformTexNo + 1) % 2;
         keys[Settings::SwitchPlatformTexture] = false;
+    }
+    if (keys[Settings::SwitchFog])
+    {
+        fogOn = !fogOn;
+        keys[Settings::SwitchFog] = false;
+    }
+    if(keys[Settings::UpFogIntensity]) 
+    {
+        fogIntensity += Settings::FogIntensityStep;
+        if(fogIntensity > Settings::FogIntensityMax) {
+            fogIntensity = Settings::FogIntensityMax;
+        }
+        //keys[Settings::UpFogIntensity] = false;
+    }
+    if(keys[Settings::DownFogIntensity]) 
+    {
+        fogIntensity -= Settings::FogIntensityStep;
+        if(fogIntensity < Settings::FogIntensityMin) {
+            fogIntensity = Settings::FogIntensityMin;
+        }
+        //keys[Settings::DownFogIntensity] = false;
     }
 }
 

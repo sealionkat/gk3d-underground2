@@ -36,8 +36,8 @@ public:
 
   static const int FogIntensityMax = 2000;
   static const int FogIntensityMin = 100;
-  static const int FogIntensityDefault = 999;
-  static const int FogIntensityStep = 5;
+  static const int FogIntensityDefault = 500;
+  static const int FogIntensityStep = 10;
   static constexpr float FogBrightness = 0.15f;
 
 
