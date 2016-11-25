@@ -26,6 +26,9 @@ int CurrentPlatformTexNo = 0;
 bool fogOn = false;
 int fogIntensity = Settings::FogIntensityDefault;
 
+Framebuffer *msaafbo = new Framebuffer(4, WIDTH, HEIGHT);
+bool antyaliasingOn = false;
+
 int main()
 {
     std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
@@ -61,6 +64,9 @@ int main()
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
+
+    //glEnable(GL_MULTISAMPLE); //antyaliasing
+    glDisable(GL_MULTISAMPLE); //disable built-in antyaliasing
 
     glEnable(GL_DEPTH_TEST);
 
@@ -245,6 +251,10 @@ int main()
 
     /* /Textures setup */
 
+    /* Antyaliasing setup */
+    msaafbo->Init();
+    /* /Antyaliasing setup */
+
     // Game loop
     std::cout << "Starting main loop!" << std::endl;
     while (!glfwWindowShouldClose(window))
@@ -257,6 +267,12 @@ int main()
         do_movement();
 
         //std::cout << "Preparing window" << std::endl;
+
+        if (antyaliasingOn)
+        {
+            msaafbo->BindBuffer();
+        }
+
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -402,6 +418,11 @@ int main()
 
         flashlight->Draw(shaderMtn);
 
+        if (antyaliasingOn)
+        {
+            msaafbo->UseBuffer();
+        }
+
         glfwSwapBuffers(window);
     }
 
@@ -472,21 +493,27 @@ void do_movement()
         fogOn = !fogOn;
         keys[Settings::SwitchFog] = false;
     }
-    if(keys[Settings::UpFogIntensity]) 
+    if (keys[Settings::UpFogIntensity])
     {
         fogIntensity += Settings::FogIntensityStep;
-        if(fogIntensity > Settings::FogIntensityMax) {
+        if (fogIntensity > Settings::FogIntensityMax)
+        {
             fogIntensity = Settings::FogIntensityMax;
         }
         //keys[Settings::UpFogIntensity] = false;
     }
-    if(keys[Settings::DownFogIntensity]) 
+    if (keys[Settings::DownFogIntensity])
     {
         fogIntensity -= Settings::FogIntensityStep;
-        if(fogIntensity < Settings::FogIntensityMin) {
+        if (fogIntensity < Settings::FogIntensityMin)
+        {
             fogIntensity = Settings::FogIntensityMin;
         }
         //keys[Settings::DownFogIntensity] = false;
+    }
+    if(keys[Settings::SwitchAntyaliasing]) {
+        antyaliasingOn = !antyaliasingOn;
+        keys[Settings::SwitchAntyaliasing] = false;
     }
 }
 

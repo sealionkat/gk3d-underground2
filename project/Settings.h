@@ -28,6 +28,7 @@ public:
   static const int SwitchFog = GLFW_KEY_F;
   static const int UpFogIntensity = GLFW_KEY_R;
   static const int DownFogIntensity = GLFW_KEY_V;
+  static const int SwitchAntyaliasing = GLFW_KEY_X;
 
   static constexpr const GLfloat CameraSpeed = 5.0f;
   static constexpr const GLfloat MouseSensitivity = 0.05f;
