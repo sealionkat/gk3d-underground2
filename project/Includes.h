@@ -28,6 +28,9 @@
 // SOIL
 #include <SOIL/SOIL.h>
 
+// Libnoise
+#include <libnoise/noise.h>
+
 #include "Settings.h"
 #include "Shader.h"
 #include "Framebuffer.h"
