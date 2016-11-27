@@ -26,7 +26,7 @@ int CurrentPlatformTexNo = 0;
 bool fogOn = false;
 int fogIntensity = Settings::FogIntensityDefault;
 
-Framebuffer *msaafbo = new Framebuffer(4, WIDTH, HEIGHT);
+Framebuffer *msaafbo = new Framebuffer(16, WIDTH, HEIGHT);
 bool antyaliasingOn = false;
 
 int main()
@@ -268,6 +268,7 @@ int main()
 
         //std::cout << "Preparing window" << std::endl;
 
+        glBindBuffer(GL_FRAMEBUFFER, 0);
         if (antyaliasingOn)
         {
             msaafbo->BindBuffer();
@@ -514,6 +515,7 @@ void do_movement()
     if(keys[Settings::SwitchAntyaliasing]) {
         antyaliasingOn = !antyaliasingOn;
         keys[Settings::SwitchAntyaliasing] = false;
+        std::cout << "Switching antialiasing" << std::endl;
     }
 }
 
