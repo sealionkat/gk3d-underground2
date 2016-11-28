@@ -2,7 +2,7 @@
 
 #define POINT_LIGHTS_NR 2
 #define SPOT_LIGHTS_NR 2
-#define TEXTURES_NR 2
+#define TEXTURES_NR 3
 
 struct Material
 {

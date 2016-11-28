@@ -252,6 +252,9 @@ int main()
     Texture *platformStripes = new Texture();
     platformStripes->loadFromFile("textures/platformstripes.png", true, false);
 
+    Texture *platformPerlin = new Texture();
+    platformPerlin->generatePerlinTexture(1024, 1024, false, false);
+
     /* /Textures setup */
 
     /* Antyaliasing setup */
@@ -346,9 +349,12 @@ int main()
         {
             concrete0->use(shaderMtn, 0);
         }
-        else
+        else if(CurrentPlatformTexNo == 1)
         {
             concrete1->use(shaderMtn, 0);
+        } else
+        {
+            platformPerlin->use(shaderMtn, 0);
         }
         platformStripes->use(shaderMtn, 1);
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 2);
@@ -489,7 +495,7 @@ void do_movement()
     }
     if (keys[Settings::SwitchPlatformTexture])
     {
-        CurrentPlatformTexNo = (CurrentPlatformTexNo + 1) % 2;
+        CurrentPlatformTexNo = (CurrentPlatformTexNo + 1) % 3;
         keys[Settings::SwitchPlatformTexture] = false;
     }
     if (keys[Settings::SwitchFog])

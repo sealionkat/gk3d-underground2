@@ -3,7 +3,10 @@
 
 class Perlin
 {
-    private:
+  public:
+    static float getPerlinValue(float x, float y);
+
+  private:
     static noise::module::Perlin perlin;
 };
 
