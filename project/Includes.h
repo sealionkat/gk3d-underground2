@@ -33,6 +33,7 @@
 
 #include "Settings.h"
 #include "Shader.h"
+#include "Perlin.h"
 #include "Framebuffer.h"
 #include "Texture.h"
 #include "Vertex.h"

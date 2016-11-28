@@ -53,7 +53,6 @@ class Texture
     int height;
     GLuint id;
     std::string type;
-    //noise::module::Perlin perlin;
 };
 
 #endif // !TEXTURE_H
