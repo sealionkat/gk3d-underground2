@@ -33,16 +33,29 @@ class Texture
 
     void generatePerlinTexture(int perlinWidth, int perlinHeight, bool noRepeatS, bool noRepeatT)
     {
-        GLubyte perlinTexture[perlinHeight][perlinWidth][4];
+        std::vector<GLubyte> perlinTexture(perlinHeight * perlinWidth * 4);
+        //GLubyte perlinTexture[perlinHeight][perlinWidth][4];
 
-        for(int i = 0; i < perlinHeight; ++i) {
-            for(int j = 0; j < perlinWidth; ++j) {
-                float perlin = (Perlin::getPerlinValue(j, i) + 1) * 0.5 * 255;
+        for (int i = 0; i < perlinHeight; ++i)
+        {
+            for (int j = 0; j < perlinWidth; ++j)
+            {
+                int idx = (i * perlinHeight + j) * 4;
+                float perlin = (Perlin::getPerlinValue(j / 50.0, i / 10.0) + 3) * 0.25 * 255;
 
-                perlinTexture[i][j][0] = (GLubyte) perlin;
-                perlinTexture[i][j][1] = (GLubyte) perlin;
-                perlinTexture[i][j][2] = (GLubyte) perlin;
-                perlinTexture[i][j][3] = 255;
+                if (perlin > 255)
+                {
+                    perlin = 255;
+                }
+                if (perlin < 0)
+                {
+                    perlin = 0;
+                }
+
+                perlinTexture[idx] = (GLubyte)perlin;
+                perlinTexture[idx + 1] = (GLubyte)perlin;
+                perlinTexture[idx + 2] = (GLubyte)perlin;
+                perlinTexture[idx + 3] = 255;
             }
         }
 
@@ -50,7 +63,6 @@ class Texture
 
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
-
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, noRepeatS ? GL_CLAMP_TO_BORDER : GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, noRepeatT ? GL_CLAMP_TO_BORDER : GL_REPEAT);
@@ -64,10 +76,9 @@ class Texture
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, perlinWidth, perlinHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, perlinTexture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, perlinWidth, perlinHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, perlinTexture.data());
 
         glBindTexture(GL_TEXTURE_2D, 0);
-
     }
 
     void use(Shader shader, int num)
