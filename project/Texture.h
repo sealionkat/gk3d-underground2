@@ -30,6 +30,12 @@ class Texture
 
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+
+    void generatePerlinTexture()
+    {
+
+    }
+
     void use(Shader shader, int num)
     {
         if (num >= 0 && num < Settings::TexturesCount)
@@ -47,6 +53,7 @@ class Texture
     int height;
     GLuint id;
     std::string type;
+    //noise::module::Perlin perlin;
 };
 
 #endif // !TEXTURE_H

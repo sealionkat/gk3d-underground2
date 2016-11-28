@@ -26,7 +26,7 @@ int CurrentPlatformTexNo = 0;
 bool fogOn = false;
 int fogIntensity = Settings::FogIntensityDefault;
 
-Framebuffer *msaafbo = new Framebuffer(16, WIDTH, HEIGHT);
+Framebuffer *msaafbo = new Framebuffer(8, WIDTH, HEIGHT);
 bool antyaliasingOn = false;
 
 int main()
@@ -39,6 +39,8 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, Settings::OpenGLMinorVersion);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+    
 
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, Settings::WindowTitle, nullptr, nullptr);
     if (window == nullptr)
@@ -65,10 +67,11 @@ int main()
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
 
-    //glEnable(GL_MULTISAMPLE); //antyaliasing
-    glDisable(GL_MULTISAMPLE); //disable built-in antyaliasing
+    glEnable(GL_MULTISAMPLE); //antyaliasing
 
     glEnable(GL_DEPTH_TEST);
+
+    std::cout << "Using " << glGetString(GL_VENDOR) << ", OpenGL " << glGetString(GL_VERSION) << ", Renderer " << glGetString(GL_RENDERER) << std::endl;
 
     /* Shaders initialization */
     std::cout << "Preparing shaders..." << std::endl;
@@ -439,7 +442,7 @@ int main()
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
-    std::cout << "Key: " << key << std::endl;
+    // std::cout << "Key: " << key << std::endl;
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, GL_TRUE);
