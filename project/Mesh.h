@@ -36,6 +36,25 @@ class Mesh
         this->setupMesh();
     }
 
+    void CalculateNormals()
+    {
+        for (auto i = std::begin(indices); i != std::end(indices); std::advance(i, 3))
+        {
+            glm::vec3 v[] = {vertices[i[0]].Position, vertices[i[1]].Position, vertices[i[2]].Position};
+            glm::vec3 norm = glm::cross(v[1] - v[0], v[2] - v[0]);
+
+            for (int j = 0; j < 3; ++j)
+            {
+                vertices[*(i + j)].Normal += norm;
+            }
+        }
+
+        for (auto i = std::begin(vertices); i != std::end(vertices); std::advance(i, 1))
+        {
+            i->Normal = glm::normalize(i->Normal);
+        }
+    }
+
     void Draw(Shader shader)
     {
         //std::cout << "Drawing mesh" << std::endl;
@@ -43,9 +62,6 @@ class Mesh
         glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
-
-  private:
-    GLuint VBO, VAO, EBO;
 
     void setupMesh()
     {
@@ -72,6 +88,9 @@ class Mesh
 
         glBindVertexArray(0); // disable VAO
     }
+
+  private:
+    GLuint VBO, VAO, EBO;
 };
 
 #endif // !MESH_H

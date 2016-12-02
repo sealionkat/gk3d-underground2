@@ -239,6 +239,10 @@ int main()
     Model *flashlight = new Model("models/flashlight/flashlight.obj");
     flashlight->SetColor(glm::vec3(0.0f, 1.0f, 1.0f));
 
+    std::cout << "Creating sphere..." << std::endl;
+    Model* sphere = new Model();
+    sphere->CreateSphere(glm::vec3(1.0f, 0.0f, 0.0f));
+
     /* /Objects setup */
 
     /* Textures setup */
@@ -433,6 +437,20 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(flashlightModel));
 
         flashlight->Draw(shaderMtn);
+
+
+        glm::mat4 sphereModel;
+        glm::mat4 translatedSphere;
+        
+        translatedSphere = glm::translate(translatedSphere, glm::vec3(0.0f, 4.0f, -3.0f));
+
+        sphereModel = translatedSphere;
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
+
+        sphere->Draw(shaderMtn);
+
+        
 
         if (antyaliasingOn)
         {

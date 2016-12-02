@@ -10,6 +10,10 @@ public:
     this->loadModel(path);
   }
 
+  Model()
+  {
+  }
+
   void Draw(Shader shader)
   {
     glUniform3f(glGetUniformLocation(shader.Program, Settings::objectColorLoc), this->color[0], this->color[1], this->color[2]);
@@ -29,6 +33,57 @@ public:
   void SetColor(glm::vec3 color)
   {
     this->color = color;
+  }
+
+  void CreateSphere(glm::vec3 color)
+  {
+    int stacks = 100;
+    int slices = 100;
+    float radius = 1.0f;
+
+    this->color = color;
+
+    std::vector<Vertex> vertices;
+    std::vector<GLuint> indices;
+
+    //create vertices
+    for (int i = 0; i <= stacks; ++i)
+    {
+
+      float V = i / (float)stacks;
+      float phi = V * glm::pi<float>();
+
+      for (int j = 0; j <= slices; ++j)
+      {
+
+        float U = j / (float)slices;
+        float theta = U * (glm::pi<float>() * 2);
+
+        float x = cosf(theta) * sinf(phi);
+        float y = cosf(phi);
+        float z = sinf(theta) * sinf(phi);
+
+        vertices.push_back({glm::vec3(x, y, z) * radius});
+      }
+    }
+
+    //create indices
+    for (int i = 0; i < slices * stacks + slices; ++i)
+    {
+      indices.push_back(i);
+      indices.push_back(i + slices + 1);
+      indices.push_back(i + slices);
+
+      indices.push_back(i + slices + 1);
+      indices.push_back(i);
+      indices.push_back(i + 1);
+    }
+
+    Mesh m = Mesh(vertices, indices, color);
+    m.CalculateNormals();
+    m.setupMesh();
+
+    this->meshes.push_back(m);
   }
 
 private:
