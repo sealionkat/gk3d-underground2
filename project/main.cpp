@@ -226,20 +226,25 @@ int main()
 
     glBindVertexArray(0);
 
-    std::cout << "Creating bench" << std::endl;
+    std::cout << "Creating bench..." << std::endl;
 
     Model *bench = new Model("models/bench/bench_v01.obj");
     bench->SetColor(glm::vec3(0.75f, 0.75f, 0.0f));
 
+    std::cout << "Creating slenderman..." << std::endl;
     Model *slenderman = new Model("models/slenderman/slenderman.obj");
     slenderman->SetColor(glm::vec3(0.3f, 0.3f, 0.3f));
 
+    std::cout << "Creating flashlight..." << std::endl;
     Model *flashlight = new Model("models/flashlight/flashlight.obj");
     flashlight->SetColor(glm::vec3(0.0f, 1.0f, 1.0f));
 
     /* /Objects setup */
 
     /* Textures setup */
+
+    std::cout << "Loading textures..." << std::endl;
+
     Texture *concrete0 = new Texture();
     concrete0->loadFromFile("textures/concrete0.jpg", false, false);
 
@@ -252,6 +257,7 @@ int main()
     Texture *platformStripes = new Texture();
     platformStripes->loadFromFile("textures/platformstripes.png", true, false);
 
+    std::cout << "Generating texture with Perlin noise" << std::endl;
     Texture *platformPerlin = new Texture();
     platformPerlin->generatePerlinTexture(1024, 1024, false, false);
 
@@ -497,11 +503,13 @@ void do_movement()
     {
         CurrentPlatformTexNo = (CurrentPlatformTexNo + 1) % 3;
         keys[Settings::SwitchPlatformTexture] = false;
+        std::cout << "Switching platform texture. Texture no: " << CurrentPlatformTexNo << std::endl;
     }
     if (keys[Settings::SwitchFog])
     {
         fogOn = !fogOn;
         keys[Settings::SwitchFog] = false;
+        std::cout << "Switching fog" << std::endl;
     }
     if (keys[Settings::UpFogIntensity])
     {
