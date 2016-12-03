@@ -78,9 +78,12 @@ int main()
     const GLchar *fragmentPath = "shaders/fragmentShader.glsl";
     const GLchar *vertexCubemapPath = "shaders/vertexCubemapShader.glsl";
     const GLchar *fragmentCubemapPath = "shaders/fragmentCubemapShader.glsl";
+    const GLchar *vertexEnvPath = "shaders/vertexEnvShader.glsl";
+    const GLchar *fragmentEnvPath = "shaders/fragmentEnvShader.glsl";
 
     Shader shaderMtn(vertexPath, fragmentPath);
     Shader shaderCubemap(vertexCubemapPath, fragmentCubemapPath);
+    Shader shaderEnv(vertexEnvPath, fragmentEnvPath);
 
     /* /Shaders initialization */
 
@@ -273,10 +276,10 @@ int main()
 
     std::vector<const GLchar *> faces;
     faces.push_back("textures/right.png"); //right
-    faces.push_back("textures/left.png"); //left
-    faces.push_back("textures/up.png"); //top
-    faces.push_back("textures/down.png"); //bottom
-    faces.push_back("textures/back.png"); //back
+    faces.push_back("textures/left.png");  //left
+    faces.push_back("textures/up.png");    //top
+    faces.push_back("textures/down.png");  //bottom
+    faces.push_back("textures/back.png");  //back
     faces.push_back("textures/front.png"); //front
     Texture *cubemap = new Texture();
     cubemap->loadCubemap(faces);
@@ -394,7 +397,7 @@ int main()
 
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 0);
 
-//todo:::: big rectangles
+        //todo:::: big rectangles
         // glBindVertexArray(VAOBig);
         // glDrawArrays(GL_TRIANGLES, 0, 36);
         // glBindVertexArray(0);
@@ -456,16 +459,11 @@ int main()
 
         flashlight->Draw(shaderMtn);
 
-
-
         // CUBEMAP
 
         shaderCubemap.Use();
 
-
-
-
-// setting camera position
+        // setting camera position
         glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
 
         // fog
@@ -512,17 +510,10 @@ int main()
         glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
         glUniform1f(glGetUniformLocation(shaderCubemap.Program, Settings::materialShininessLoc), 32.0f);
 
-
-
-
         glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
 
-        
-
         cubemap->useCubemap(shaderCubemap);
-
-        
 
         glm::mat4 wallsModel;
 
@@ -533,6 +524,16 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
 
+        // /CUBEMAP
+
+        // ENVIRONMENTAL MAPPING
+        shaderEnv.Use();
+
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
+
+        cubemap->useCubemap(shaderEnv);
         glm::mat4 sphereModel;
         glm::mat4 translatedSphere;
 
@@ -540,12 +541,11 @@ int main()
 
         sphereModel = translatedSphere;
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
+        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
 
         sphere->Draw(shaderCubemap);
 
-
-        // /CUBEMAP
+        // /ENVIRONMENTAL MAPPING
 
         if (antyaliasingOn)
         {
