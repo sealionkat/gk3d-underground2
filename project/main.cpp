@@ -40,8 +40,6 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    
-
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, Settings::WindowTitle, nullptr, nullptr);
     if (window == nullptr)
     {
@@ -141,14 +139,7 @@ int main()
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f};
 
     std::cout << "Creating walls, floor and ceiling" << std::endl;
-    GLfloat verticesBig[] = {                                                    //position, normal, texture
-                             -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //front
-                             8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-                             8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-
-                             -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-                             8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-                             -8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+    GLfloat verticesBig[] = {//position, normal, texture
 
                              8.0f, 7.0f, 15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //right
                              8.0f, 7.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -158,14 +149,6 @@ int main()
                              8.0f, 7.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
                              8.0f, -1.0f, -15.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-                             -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, //down
-                             -8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                             8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-
-                             -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                             8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                             8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-
                              -8.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //left
                              -8.0f, 7.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
                              -8.0f, 7.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -173,6 +156,22 @@ int main()
                              -8.0f, -1.0f, 15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
                              -8.0f, 7.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
                              -8.0f, -1.0f, -15.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+
+                             -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, //up
+                             -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+
+                             8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+
+                             -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, //down
+                             -8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+
+                             -8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, -15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, 15.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 
                              -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, //back
                              -8.0f, 7.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -182,13 +181,15 @@ int main()
                              8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
                              -8.0f, -1.0f, -15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-                             -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, //up
-                             -8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-                             8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                             -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //front
+                             8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+                             8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-                             8.0f, 7.0f, -15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-                             8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-                             -8.0f, 7.0f, 15.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f};
+                             -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+                             8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+                             -8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f
+
+    };
 
     // VBO, VAO
     GLuint VBO, VAO, VBOBig, VAOBig;
@@ -243,7 +244,7 @@ int main()
     flashlight->SetColor(glm::vec3(0.0f, 1.0f, 1.0f));
 
     std::cout << "Creating sphere..." << std::endl;
-    Model* sphere = new Model();
+    Model *sphere = new Model();
     sphere->CreateSphere(glm::vec3(1.0f, 0.0f, 0.0f));
 
     /* /Objects setup */
@@ -270,7 +271,7 @@ int main()
 
     std::cout << "Loading cubemap..." << std::endl;
 
-    std::vector<const GLchar*> faces;
+    std::vector<const GLchar *> faces;
     faces.push_back("textures/grimmnight0.bmp"); //right
     faces.push_back("textures/grimmnight1.bmp"); //left
     faces.push_back("textures/grimmnight2.bmp"); //top
@@ -314,7 +315,7 @@ int main()
         glm::mat4 model;
         glm::mat4 view;
         glm::mat4 projection;
-        //std::cout << "Prepating matrices" << std::endl;
+
         model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
@@ -332,13 +333,13 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::fogBrightnessLoc), Settings::FogBrightness);
 
         // Point lights
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.5f, 12.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.25f, 12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), ((glm::sin((GLfloat)glfwGetTime()) + 1) / 2), 0.0f, 0.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].constant"), 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].linear"), 0.1f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].quadratic"), 0.1f);
         // Point light 2
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].position"), 0.0f, 6.5f, -12.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].position"), 0.0f, 6.25f, -12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].color"), 1.0f, 1.0f, 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].constant"), 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.1f);
@@ -374,10 +375,11 @@ int main()
         {
             concrete0->use(shaderMtn, 0);
         }
-        else if(CurrentPlatformTexNo == 1)
+        else if (CurrentPlatformTexNo == 1)
         {
             concrete1->use(shaderMtn, 0);
-        } else
+        }
+        else
         {
             platformPerlin->use(shaderMtn, 0);
         }
@@ -392,9 +394,10 @@ int main()
 
         glUniform1i(glGetUniformLocation(shaderMtn.Program, Settings::numTexturesLoc), 0);
 
-        glBindVertexArray(VAOBig);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+//todo:::: big rectangles
+        // glBindVertexArray(VAOBig);
+        // glDrawArrays(GL_TRIANGLES, 0, 36);
+        // glBindVertexArray(0);
 
         // drawing loaded models
         glm::mat4 scaledBench;
@@ -453,7 +456,6 @@ int main()
 
         flashlight->Draw(shaderMtn);
 
-
         shaderEnv.Use();
 
         glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
@@ -461,7 +463,7 @@ int main()
 
         glm::mat4 sphereModel;
         glm::mat4 translatedSphere;
-        
+
         translatedSphere = glm::translate(translatedSphere, glm::vec3(0.0f, 4.0f, -3.0f));
 
         sphereModel = translatedSphere;
@@ -472,7 +474,14 @@ int main()
 
         sphere->Draw(shaderEnv);
 
-        
+        glm::mat4 wallsModel;
+
+        wallsModel = glm::rotate(wallsModel, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(wallsModel));
+
+        glBindVertexArray(VAOBig);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
 
         if (antyaliasingOn)
         {
@@ -569,7 +578,8 @@ void do_movement()
         }
         //keys[Settings::DownFogIntensity] = false;
     }
-    if(keys[Settings::SwitchAntyaliasing]) {
+    if (keys[Settings::SwitchAntyaliasing])
+    {
         antyaliasingOn = !antyaliasingOn;
         keys[Settings::SwitchAntyaliasing] = false;
         std::cout << "Switching antialiasing" << std::endl;
