@@ -533,6 +533,10 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
 
+        glUniform1i(glGetUniformLocation(shaderEnv.Program, Settings::fogOnLoc), fogOn);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, Settings::fogIntensityLoc), GLfloat(fogIntensity) / 2000.0);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, Settings::fogBrightnessLoc), Settings::FogBrightness);
+
         cubemap->useCubemap(shaderEnv);
         glm::mat4 sphereModel;
         glm::mat4 translatedSphere;
@@ -543,7 +547,7 @@ int main()
 
         glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
 
-        sphere->Draw(shaderCubemap);
+        sphere->Draw(shaderEnv);
 
         // /ENVIRONMENTAL MAPPING
 
