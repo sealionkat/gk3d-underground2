@@ -76,11 +76,11 @@ int main()
 
     const GLchar *vertexPath = "shaders/vertexShader.glsl";
     const GLchar *fragmentPath = "shaders/fragmentShader.glsl";
-    const GLchar *vertexEnvPath = "shaders/vertexEnvShader.glsl";
-    const GLchar *fragmentEnvPath = "shaders/fragmentEnvShader.glsl";
+    const GLchar *vertexCubemapPath = "shaders/vertexCubemapShader.glsl";
+    const GLchar *fragmentCubemapPath = "shaders/fragmentCubemapShader.glsl";
 
     Shader shaderMtn(vertexPath, fragmentPath);
-    Shader shaderEnv(vertexEnvPath, fragmentEnvPath);
+    Shader shaderCubemap(vertexCubemapPath, fragmentCubemapPath);
 
     /* /Shaders initialization */
 
@@ -456,10 +456,10 @@ int main()
 
         flashlight->Draw(shaderMtn);
 
-        shaderEnv.Use();
+        shaderCubemap.Use();
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
 
         glm::mat4 sphereModel;
         glm::mat4 translatedSphere;
@@ -468,16 +468,16 @@ int main()
 
         sphereModel = translatedSphere;
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
 
-        cubemap->useCubemap(shaderEnv);
+        cubemap->useCubemap(shaderCubemap);
 
-        sphere->Draw(shaderEnv);
+        sphere->Draw(shaderCubemap);
 
         glm::mat4 wallsModel;
 
         wallsModel = glm::rotate(wallsModel, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(wallsModel));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(wallsModel));
 
         glBindVertexArray(VAOBig);
         glDrawArrays(GL_TRIANGLES, 0, 36);
