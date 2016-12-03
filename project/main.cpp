@@ -78,11 +78,11 @@ int main()
 
     const GLchar *vertexPath = "shaders/vertexShader.glsl";
     const GLchar *fragmentPath = "shaders/fragmentShader.glsl";
-    const GLchar *vertexCubemapPath = "shaders/vertexCubemapShader.glsl";
-    const GLchar *fragmentCubemapPath = "shaders/fragmentCubemapShader.glsl";
+    const GLchar *vertexEnvPath = "shaders/vertexEnvShader.glsl";
+    const GLchar *fragmentEnvPath = "shaders/fragmentEnvShader.glsl";
 
     Shader shaderMtn(vertexPath, fragmentPath);
-    Shader shaderCubemap(vertexCubemapPath, fragmentCubemapPath);
+    Shader shaderCubemap(vertexEnvPath, fragmentEnvPath);
 
     /* /Shaders initialization */
 
@@ -454,6 +454,11 @@ int main()
         flashlight->Draw(shaderMtn);
 
 
+        shaderCubemap.Use();
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
+
         glm::mat4 sphereModel;
         glm::mat4 translatedSphere;
         
@@ -461,9 +466,11 @@ int main()
 
         sphereModel = translatedSphere;
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
 
-        sphere->Draw(shaderMtn);
+        // cubemap->useCubemap();
+
+        sphere->Draw(shaderCubemap);
 
         
 
