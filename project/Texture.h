@@ -34,7 +34,6 @@ class Texture
     void generatePerlinTexture(int perlinWidth, int perlinHeight, bool noRepeatS, bool noRepeatT)
     {
         std::vector<GLubyte> perlinTexture(perlinHeight * perlinWidth * 4);
-        //GLubyte perlinTexture[perlinHeight][perlinWidth][4];
 
         for (int i = 0; i < perlinHeight; ++i)
         {
@@ -81,6 +80,31 @@ class Texture
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    void loadCubemap(std::vector<const GLchar *> faces)
+    {
+        glGenTextures(1, &texture);
+        glActiveTexture(GL_TEXTURE0);
+
+        unsigned char *image;
+
+        glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+
+        for (GLuint i = 0; i < faces.size(); ++i)
+        {
+            image = SOIL_load_image(faces[i], &width, &height, 0, SOIL_LOAD_RGB);
+
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+        }
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+        glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    }
+
     void use(Shader shader, int num)
     {
         if (num >= 0 && num < Settings::TexturesCount)
@@ -90,6 +114,11 @@ class Texture
             std::string name = std::string(Settings::texturesLoc) + std::string("[") + std::to_string(num) + std::string("]");
             glUniform1i(glGetUniformLocation(shader.Program, name.c_str()), num);
         }
+    }
+
+    void useCubemap(Shader shader)
+    {
+        glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
     }
 
   private:

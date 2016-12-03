@@ -78,8 +78,11 @@ int main()
 
     const GLchar *vertexPath = "shaders/vertexShader.glsl";
     const GLchar *fragmentPath = "shaders/fragmentShader.glsl";
+    const GLchar *vertexCubemapPath = "shaders/vertexCubemapShader.glsl";
+    const GLchar *fragmentCubemapPath = "shaders/fragmentCubemapShader.glsl";
 
     Shader shaderMtn(vertexPath, fragmentPath);
+    Shader shaderCubemap(vertexCubemapPath, fragmentCubemapPath);
 
     /* /Shaders initialization */
 
@@ -264,6 +267,18 @@ int main()
     std::cout << "Generating texture with Perlin noise" << std::endl;
     Texture *platformPerlin = new Texture();
     platformPerlin->generatePerlinTexture(1024, 1024, false, false);
+
+    std::cout << "Loading cubemap..." << std::endl;
+
+    std::vector<const GLchar*> faces;
+    faces.push_back("textures/grimmnight0.bmp"); //right
+    faces.push_back("textures/grimmnight1.bmp"); //left
+    faces.push_back("textures/grimmnight2.bmp"); //top
+    faces.push_back("textures/grimmnight3.bmp"); //bottom
+    faces.push_back("textures/grimmnight4.bmp"); //back
+    faces.push_back("textures/grimmnight5.bmp"); //front
+    Texture *cubemap = new Texture();
+    cubemap->loadCubemap(faces);
 
     /* /Textures setup */
 
