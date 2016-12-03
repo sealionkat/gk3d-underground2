@@ -245,7 +245,7 @@ int main()
 
     std::cout << "Creating sphere..." << std::endl;
     Model *sphere = new Model();
-    sphere->CreateSphere(glm::vec3(1.0f, 0.0f, 0.0f));
+    sphere->CreateSphere(glm::vec3(1.0f, 1.0f, 1.0f));
 
     /* /Objects setup */
 
@@ -272,12 +272,12 @@ int main()
     std::cout << "Loading cubemap..." << std::endl;
 
     std::vector<const GLchar *> faces;
-    faces.push_back("textures/grimmnight0.bmp"); //right
-    faces.push_back("textures/grimmnight1.bmp"); //left
-    faces.push_back("textures/grimmnight2.bmp"); //top
-    faces.push_back("textures/grimmnight3.bmp"); //bottom
-    faces.push_back("textures/grimmnight4.bmp"); //back
-    faces.push_back("textures/grimmnight5.bmp"); //front
+    faces.push_back("textures/right.png"); //right
+    faces.push_back("textures/left.png"); //left
+    faces.push_back("textures/up.png"); //top
+    faces.push_back("textures/down.png"); //bottom
+    faces.push_back("textures/back.png"); //back
+    faces.push_back("textures/front.png"); //front
     Texture *cubemap = new Texture();
     cubemap->loadCubemap(faces);
 
@@ -456,10 +456,82 @@ int main()
 
         flashlight->Draw(shaderMtn);
 
+
+
+        // CUBEMAP
+
         shaderCubemap.Use();
+
+
+
+
+// setting camera position
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
+
+        // fog
+        glUniform1i(glGetUniformLocation(shaderCubemap.Program, Settings::fogOnLoc), fogOn);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, Settings::fogIntensityLoc), GLfloat(fogIntensity) / 2000.0);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, Settings::fogBrightnessLoc), Settings::FogBrightness);
+
+        // Point lights
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "pointLights[0].position"), 0.0f, 6.25f, 12.0f);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "pointLights[0].color"), ((glm::sin((GLfloat)glfwGetTime()) + 1) / 2), 0.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "pointLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "pointLights[0].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "pointLights[0].quadratic"), 0.1f);
+        // Point light 2
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "pointLights[1].position"), 0.0f, 6.25f, -12.0f);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "pointLights[1].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "pointLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "pointLights[1].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "pointLights[1].quadratic"), 0.1f);
+
+        // Spotlight
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].position"), cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].direction"), cameraFront.x, cameraFront.y, cameraFront.z);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[0].quadratic"), 0.05f);
+
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].position"), 3.75f, -0.6f, 13.9f);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].direction"), 0.0f, 0.0f, -1.0f);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, "spotLights[1].quadratic"), 0.05f);
+
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
+
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::materialAmbientLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderCubemap.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(shaderCubemap.Program, Settings::materialShininessLoc), 32.0f);
+
+
+
 
         glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
+
+        
+
+        cubemap->useCubemap(shaderCubemap);
+
+        
+
+        glm::mat4 wallsModel;
+
+        wallsModel = glm::rotate(wallsModel, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(wallsModel));
+
+        glBindVertexArray(VAOBig);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
 
         glm::mat4 sphereModel;
         glm::mat4 translatedSphere;
@@ -470,18 +542,10 @@ int main()
 
         glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(sphereModel));
 
-        cubemap->useCubemap(shaderCubemap);
-
         sphere->Draw(shaderCubemap);
 
-        glm::mat4 wallsModel;
 
-        wallsModel = glm::rotate(wallsModel, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shaderCubemap.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(wallsModel));
-
-        glBindVertexArray(VAOBig);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+        // /CUBEMAP
 
         if (antyaliasingOn)
         {
