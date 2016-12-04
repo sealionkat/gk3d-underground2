@@ -65,7 +65,7 @@ int main()
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
 
-    glEnable(GL_MULTISAMPLE); //antyaliasing
+    glDisable(GL_MULTISAMPLE); //antyaliasing
 
     glEnable(GL_DEPTH_TEST);
 
@@ -304,10 +304,8 @@ int main()
         //std::cout << "Preparing window" << std::endl;
 
         glBindBuffer(GL_FRAMEBUFFER, 0);
-        if (antyaliasingOn)
-        {
-            msaafbo->BindBuffer();
-        }
+
+        msaafbo->BindBuffer();
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -551,10 +549,7 @@ int main()
 
         // /ENVIRONMENTAL MAPPING
 
-        if (antyaliasingOn)
-        {
-            msaafbo->UseBuffer();
-        }
+        msaafbo->UseBuffer();
 
         glfwSwapBuffers(window);
     }
@@ -649,6 +644,14 @@ void do_movement()
     if (keys[Settings::SwitchAntyaliasing])
     {
         antyaliasingOn = !antyaliasingOn;
+        if (antyaliasingOn)
+        {
+            glEnable(GL_MULTISAMPLE);
+        }
+        else
+        {
+            glDisable(GL_MULTISAMPLE);
+        }
         keys[Settings::SwitchAntyaliasing] = false;
         std::cout << "Switching antialiasing" << std::endl;
     }
