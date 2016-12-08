@@ -27,6 +27,7 @@ bool fogOn = false;
 int fogIntensity = Settings::FogIntensityDefault;
 
 Framebuffer *msaafbo = new Framebuffer(8, WIDTH, HEIGHT);
+Framebuffer *blurfbo = new Framebuffer(false, false, WIDTH, HEIGHT);
 bool antyaliasingOn = false;
 
 int main()
@@ -287,8 +288,12 @@ int main()
     /* /Textures setup */
 
     /* Antyaliasing setup */
-    msaafbo->Init();
+    msaafbo->InitMultisampled();
     /* /Antyaliasing setup */
+
+    /* Blur setup */
+    blurfbo->Init();
+    /* /Blur setup */
 
     // Game loop
     std::cout << "Starting main loop!" << std::endl;
