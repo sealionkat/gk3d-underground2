@@ -532,6 +532,49 @@ int main()
         // ENVIRONMENTAL MAPPING
         shaderEnv.Use();
 
+
+// Point lights
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "pointLights[0].position"), 0.0f, 6.25f, 12.0f);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "pointLights[0].color"), ((glm::sin((GLfloat)glfwGetTime()) + 1) / 2), 0.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "pointLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "pointLights[0].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "pointLights[0].quadratic"), 0.1f);
+        // Point light 2
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "pointLights[1].position"), 0.0f, 6.25f, -12.0f);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "pointLights[1].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "pointLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "pointLights[1].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "pointLights[1].quadratic"), 0.1f);
+
+        // Spotlight
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].position"), cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].direction"), cameraFront.x, cameraFront.y, cameraFront.z);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[0].quadratic"), 0.05f);
+
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].position"), 3.75f, -0.6f, 13.9f);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].direction"), 0.0f, 0.0f, -1.0f);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, "spotLights[1].quadratic"), 0.05f);
+
+
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
+
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, Settings::materialAmbientLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderEnv.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(shaderEnv.Program, Settings::materialShininessLoc), 32.0f);
+
+
+
         glUniform3f(glGetUniformLocation(shaderEnv.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
         glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shaderEnv.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
