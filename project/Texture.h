@@ -40,7 +40,7 @@ class Texture
             for (int j = 0; j < perlinWidth; ++j)
             {
                 int idx = (i * perlinHeight + j) * 4;
-                float perlin = (Perlin::getPerlinValue(j / 50.0, i / 10.0) + 3) * 0.25 * 255;
+                float perlin = (Perlin::getPerlinValue(j / 100.0, i / 20.0) + 3.5) * 0.25 * 255;
 
                 if (perlin > 255)
                 {
